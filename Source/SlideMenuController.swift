@@ -161,9 +161,16 @@ open class SlideMenuController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    fileprivate func resetMainFrame() {
+        var mainFrame = mainContainerView.frame
+        mainFrame.origin.x = 0.0
+        mainContainerView.frame = mainFrame
+    }
+    
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         mainContainerView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        resetMainFrame()
         leftContainerView.isHidden = true
         rightContainerView.isHidden = true
         
@@ -209,6 +216,7 @@ open class SlideMenuController: UIViewController, UIGestureRecognizerDelegate {
     
     open override func viewWillLayoutSubviews() {
         // topLayoutGuideの値が確定するこのタイミングで各種ViewControllerをセットする
+        
         setUpViewController(mainContainerView, targetViewController: mainViewController)
         setUpViewController(leftContainerView, targetViewController: leftViewController)
         setUpViewController(rightContainerView, targetViewController: rightViewController)
@@ -605,9 +613,7 @@ open class SlideMenuController: UIViewController, UIGestureRecognizerDelegate {
                 strongSelf.leftContainerView.frame = frame
                 strongSelf.opacityView.layer.opacity = 0.0
                 strongSelf.mainContainerView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                var mainFrame = strongSelf.mainContainerView.frame
-                mainFrame.origin.x = 0
-                strongSelf.mainContainerView.frame = mainFrame
+                strongSelf.resetMainFrame()
             }
         }) { [weak self](Bool) -> Void in
             if let strongSelf = self {
