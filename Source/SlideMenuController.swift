@@ -165,6 +165,12 @@ open class SlideMenuController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    open func removeRightView() {
+        rightContainerView.removeFromSuperview()
+        removeRightGestures()
+        rightViewController = nil
+    }
+    
     fileprivate func resetMainFrame() {
         var mainFrame = mainContainerView.frame
         mainFrame.origin.x = 0.0
