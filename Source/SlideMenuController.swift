@@ -146,6 +146,10 @@ open class SlideMenuController: UIViewController, UIGestureRecognizerDelegate {
             addLeftGestures()
         }
         
+       setupRightView()
+    }
+    
+    func setupRightView() {
         if rightViewController != nil {
             var rightFrame: CGRect = view.bounds
             rightFrame.size.width = SlideMenuOptions.rightViewWidth
@@ -404,7 +408,6 @@ open class SlideMenuController: UIViewController, UIGestureRecognizerDelegate {
             
             let translation: CGPoint = panGesture.translation(in: panGesture.view!)
             leftContainerView.frame = applyLeftTranslation(translation, toFrame: LeftPanState.frameAtStartOfPan)
-            print(leftContainerView.frame)
             var mainFrame = mainContainerView.frame
             mainFrame.origin.x = leftContainerView.frame.width - abs(leftContainerView.frame.origin.x)
             
@@ -745,6 +748,7 @@ open class SlideMenuController: UIViewController, UIGestureRecognizerDelegate {
     open func changeRightViewController(_ rightViewController: UIViewController, closeRight:Bool) {
         removeViewController(self.rightViewController)
         self.rightViewController = rightViewController
+        setupRightView()
         setUpViewController(rightContainerView, targetViewController: rightViewController)
         if closeRight {
             self.closeRight()
