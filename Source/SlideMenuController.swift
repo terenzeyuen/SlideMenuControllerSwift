@@ -165,7 +165,7 @@ open class SlideMenuController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    open func removeRightView() {
+    open func removeRightViewController() {
         rightContainerView.removeFromSuperview()
         removeRightGestures()
         rightViewController = nil
